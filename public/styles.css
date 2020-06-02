@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+header {
+  background-color: black;
+  color: white;
+  text-align: center;
+  height: 5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+main {
+  margin: 0 auto;
+  margin-top: 10rem;
+  max-width: 25rem;
+  display: grid;
+  place-items: center;
+}
+
+.authenticated {
+  grid-template-rows: 50px 50px 50px;
+}
+
+form {
+  width: 100%;
+}
+
+input,
+button {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.25rem;
+  font-size: 1rem;
+}
+
+button {
+  background-color: cornflowerblue;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  padding: 0.5rem;
+}

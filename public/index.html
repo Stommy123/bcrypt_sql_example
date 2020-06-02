@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header><h1>Welcome</h1></header>
+    <main class="authenticated" id="main"></main>
+    <script src="script.js"></script>
+    <script>
+      async function signOut() {
+        await fetch('/sign-out', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        });
+
+        init();
+      }
+
+      async function getJoke() {
+        const prevJoke = document.getElementById('joke');
+        if (prevJoke) prevJoke.remove();
+
+        const jokeBtn = document.getElementById('joke-btn');
+        jokeBtn.innerText = 'Loading Joke!';
+
+        const getJokeResponse = await fetch('/get-joke');
+
+        const { joke } = await getJokeResponse.json();
+
+        const jokeEl = document.createElement('p');
+        jokeEl.setAttribute('id', 'joke');
+        jokeEl.innerText = joke;
+
+        main.appendChild(jokeEl);
+
+        jokeBtn.innerText = 'Get Joke!';
+      }
+
+      function init() {
+        const cookies = getCookies();
+
+        if (!cookies.userId) return (window.location = '/signin.html');
+
+        main.innerHTML = `
+            <h2>Hello, ${cookies.userEmail}</h2>
+            <a href="#" onclick="signOut()">Sign Out</a>
+            <button id="joke-btn" onclick="getJoke()">Get Joke!</button>
+        `;
+      }
+
+      init();
+    </script>
+  </body>
+</html>

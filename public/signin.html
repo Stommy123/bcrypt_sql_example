@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header><h1>Sign In</h1></header>
+    <main>
+      <form id="form">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+        <button type="submit">Sign In</button>
+      </form>
+      <a href="/signup.html">Sign Up</a>
+    </main>
+    <script src="script.js"></script>
+    <script>
+      const cookies = getCookies();
+
+      if (cookies.userId) {
+        window.location = '/';
+      }
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const { email, password } = form.elements;
+        const signInResponse = await fetch('/sign-in', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({ email: email.value, password: password.value }),
+        });
+
+        const { user } = await signInResponse.json();
+
+        if (user) return (window.location = '/');
+
+        alert('Invalid email / password');
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
