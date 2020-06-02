@@ -30,17 +30,21 @@
         const jokeBtn = document.getElementById('joke-btn');
         jokeBtn.innerText = 'Loading Joke!';
 
-        const getJokeResponse = await fetch('/get-joke');
+        try {
+          const getJokeResponse = await fetch('/get-joke');
 
-        const { joke } = await getJokeResponse.json();
+          const { joke } = await getJokeResponse.json();
 
-        const jokeEl = document.createElement('p');
-        jokeEl.setAttribute('id', 'joke');
-        jokeEl.innerText = joke;
+          const jokeEl = document.createElement('p');
+          jokeEl.setAttribute('id', 'joke');
+          jokeEl.innerText = joke;
 
-        main.appendChild(jokeEl);
-
-        jokeBtn.innerText = 'Get Joke!';
+          main.appendChild(jokeEl);
+        } catch (err) {
+          alert('Unauthenticated! Try logging out and back in');
+        } finally {
+          jokeBtn.innerText = 'Get Joke!';
+        }
       }
 
       function init() {
