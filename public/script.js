@@ -7,3 +7,5 @@ function getCookies() {
     return { ...acc, [key]: value };
   }, {});
 }
+
+console.log('hey');

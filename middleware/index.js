@@ -5,7 +5,7 @@ export const withAuth = async (req, res, next) => {
     const { userId } = req.cookies;
 
     const user = await DB.single('SELECT * FROM users WHERE id = $1 LIMIT 1', [userId]);
-    console.log('user?', user);
+
     if (!user) throw new Error('UNAUTHENTICATED');
 
     next();

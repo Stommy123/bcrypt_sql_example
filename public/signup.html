@@ -30,7 +30,7 @@
         event.preventDefault();
         const { email, password } = form.elements;
 
-        const signInResponse = await fetch('/sign-up', {
+        const signUpResponse = await fetch('/sign-up', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@
           body: JSON.stringify({ email: email.value, password: password.value }),
         });
 
-        const { user } = await signInResponse.json();
+        const { user } = await signUpResponse.json();
 
         if (user) return (window.location = '/');
 
